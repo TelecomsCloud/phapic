@@ -1,0 +1,32 @@
+{
+    "name": "TelecomsCloud",
+    "apiVersion": "v1",
+    "description": "TelecomsCloud REST API Client",
+    "operations": {
+        "check": {
+            "httpMethod": "GET",
+            "uri": "/v1/check",
+            "responseModel":  "getResponse"
+        },
+        "echo":  {
+            "httpMethod":  "GET",
+            "uri":  "/v1/echo/{myString}",
+            "responseModel":  "getResponse",
+            "parameters":  {
+                "myString":  {
+                    "type":  "string",
+                    "location":  "uri",
+                    "required": "true"
+                }
+            }
+        }
+    },
+    "models":  {
+        "getResponse":  {
+            "type":  "object",
+            "additionalProperties":  {
+                "location":  "json"
+            }
+        }
+    }
+}
