@@ -1,10 +1,4 @@
 <?php
-/**
- * Filename Client.php
- * @author: Richard Wharton
- * @licence: Copyright Richard Wharton 2015
- */
-
 namespace Tc\Api;
 
 use GuzzleHttp\Client as GuzClient;
