@@ -17,8 +17,6 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
 class Client extends GuzzleClient
 {
     const API_VERSION = 1;
-    public $filters;
-    public $postFileFactory;
 
     /**
      * @param string $baseUri TelecomsCloud API base URI, usually https://api.telecomscloud.com
