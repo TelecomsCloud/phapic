@@ -18,10 +18,10 @@ Install the clients dependencies using composer (https://getcomposer.org)
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $apiBaseUri = 'https://api.telecomscloud.com/';
-$apiSid = '...';
-$apiToken = '...';
+$sid = '...';
+$token = '...';
 
-$client = new Client($apiBaseUri, $sid, $token);
+$client = new Tc\Api\Client($apiBaseUri, $sid, $token);
 
 var_dump($client->check());
 
