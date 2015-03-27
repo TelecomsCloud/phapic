@@ -21,13 +21,29 @@ $apiBaseUri = 'https://api.telecomscloud.com/';
 $sid = '...';
 $token = '...';
 
-$client = new Tc\Api\Client($apiBaseUri, $sid, $token);
+$client = new Tc\Phapic\Client($apiBaseUri, $sid, $token);
 
-var_dump($client->check());
-
-var_dump($client->echo(['myString' => 'test']));
+var_dump($client->formatNumberE164(['number' => '01514962245', 'location' => 'GB']));
+var_dump($client->formatNumberNational(['number' => '+441514962245', 'location' => 'GB']));
+var_dump($client->formatNumberInternational(['number' => '01514962245', 'providedLocation' => 'GB', 'dialFromLocation' => 'US']));
+var_dump($client->formatNumberPretty(['number' => '01514962245', 'location' => 'GB']));
 ```
 
 ```
-[TODO: SHOW SCRIPT OUTPUT EXAMPLE HERE]
+array(1) {
+  'number' =>
+  string(13) "+441514962245"
+}
+array(1) {
+  'number' =>
+  string(11) "01514962245"
+}
+array(1) {
+  'number' =>
+  string(15) "011441514962245"
+}
+array(1) {
+  'number' =>
+  string(13) "0151 496 2245"
+}
 ```
