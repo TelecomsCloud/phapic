@@ -2,6 +2,9 @@
 
 This package provides an easy to use, guzzle based (http://guzzlephp.org/), client for the API.
 
+Requires:
+  PHP >= 5.4
+
 ## Installation
 
 Clone the repository from Github
