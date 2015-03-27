@@ -1,5 +1,5 @@
 <?php
-namespace Tc\Api;
+namespace Tc\Phapic;
 
 use GuzzleHttp\Client as GuzClient;
 use GuzzleHttp\Command\Guzzle\Description;
@@ -13,6 +13,10 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  * @package TcApi
  * @method check
  * @method echo
+ * @method formatNumberE164
+ * @method formatNumberNational
+ * @method formatNumberInternational
+ * @method formatNumberPretty
  */
 class Client extends GuzzleClient
 {

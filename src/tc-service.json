@@ -16,7 +16,95 @@
                 "myString":  {
                     "type":  "string",
                     "location":  "uri",
-                    "required": "true"
+                    "required": true
+                }
+            }
+        },
+        "formatNumberE164": {
+            "httpMethod": "GET",
+            "uri": "/v1/format/number/e164/{number}/{location}{?pretty}",
+            "responseModel":  "getResponse",
+            "parameters": {
+                "number": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "location": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "pretty": {
+                    "type": "string",
+                    "location": "query",
+                    "required": false
+                }
+            }
+        },
+        "formatNumberNational": {
+            "httpMethod": "GET",
+            "uri": "/v1/format/number/national/{number}/{location}{?pretty}",
+            "responseModel":  "getResponse",
+             "parameters": {            
+                "number": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "location": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "pretty": {
+                    "type": "string",
+                    "location": "query",
+                    "required": false
+                }
+             }
+        },
+        "formatNumberInternational": {
+            "httpMethod": "GET",
+            "uri": "/v1/format/number/international/{number}/{providedLocation}/{dialFromLocation}{?pretty}",
+            "responseModel":  "getResponse",
+            "parameters": {
+                "number": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "providedLocation": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "dialFromLocation": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "pretty": {
+                    "type": "string",
+                    "location": "query",
+                    "required": false
+                }
+            }
+        },
+        "formatNumberPretty": {
+            "httpMethod": "GET",
+            "uri": "/v1/format/number/pretty/{number}/{location}",
+            "responseModel":  "getResponse",
+            "parameters": {
+                "number": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "location": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
                 }
             }
         }
