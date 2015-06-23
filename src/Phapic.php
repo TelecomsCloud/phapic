@@ -62,7 +62,6 @@ class Phapic
         $refreshExpiresSeconds = 28 * (24 * 60 * 60); // 28 Days
 
         $this->storage->setTokens(
-            $this->clientId,
             $grantResponse['access_token'],
             $grantResponse['expires_in'],
             $grantResponse['refresh_token'],

@@ -78,7 +78,6 @@ class PdoStorageInterface implements StorageInterface
         $refreshExpiresDate->add(new \DateInterval('PT' . $refreshExpiresInSeconds . 'S'));
         $refreshExpiresDate = $refreshExpiresDate->format('Y-m-d h:i:s');
 
-
         $query = 'INSERT INTO ' . $this->tableName
             . ' SET `client_id` = :clientId,'
             . ' `client_secret` = :clientSecret,'
