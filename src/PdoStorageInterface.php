@@ -25,6 +25,7 @@ class PdoStorageInterface implements StorageInterface
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->tableName = $tableName;
+        $this->pdo = $pdo;
     }
 
 
