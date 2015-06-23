@@ -49,6 +49,7 @@ class Client extends GuzzleClient
         $description = new Description($serviceDescription);
 
         $client = new GuzClient(['base_url' => $baseUri]);
+        $client->setDefaultOption('allow_redirects', false);
 
         parent::__construct($client, $description, $config);
     }
