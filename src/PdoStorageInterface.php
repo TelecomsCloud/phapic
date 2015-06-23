@@ -26,6 +26,7 @@ class PdoStorageInterface implements StorageInterface
         $this->clientSecret = $clientSecret;
         $this->tableName = $tableName;
         $this->pdo = $pdo;
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
 
@@ -38,7 +39,7 @@ class PdoStorageInterface implements StorageInterface
                    `access_token` varchar(40) NOT NULL,
                    `expires_date` datetime NOT NULL,
                    `refresh_token` varchar(40) NOT NULL,
-                   `refresh_expires_date` datetime(40)) NOT NULL,
+                   `refresh_expires_date` datetime()) NOT NULL,
                    PRIMARY KEY (`client_id`)
                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;';
 
