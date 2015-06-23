@@ -69,17 +69,6 @@ class PdoStorageInterface implements StorageInterface
      */
     public function setTokens($accessToken, $expiresDate, $refreshToken, $refreshExpiresDate)
     {
-//        $now = new DateTime('now');
-//
-//        $expiresDate = clone $now;
-//        $expiresDate->add(new DateInterval('PT' . $expiresInSeconds . 'S'));
-//
-//        $expiresDate = $expiresDate->format('Y-m-d H:i:s');
-//
-//        $refreshExpiresDate = clone $now;
-//        $refreshExpiresDate->add(new DateInterval('PT' . $refreshExpiresInSeconds . 'S'));
-//        $refreshExpiresDate = $refreshExpiresDate->format('Y-m-d H:i:s');
-
         $query = 'INSERT INTO ' . $this->tableName
             . ' SET `client_id` = :clientId,'
             . ' `client_secret` = :clientSecret,'
