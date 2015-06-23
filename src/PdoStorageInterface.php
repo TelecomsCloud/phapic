@@ -68,8 +68,8 @@ class PdoStorageInterface implements StorageInterface
     {
         $query = 'UPDATE ' . $this->tableName
             . ' SET `access_token` = :accessToken,'
-            . ' `expires_date` = :expiresInSeconds'
-            . ' `refresh_token` = :refreshToken'
+            . ' `expires_date` = :expiresInSeconds,'
+            . ' `refresh_token` = :refreshToken,'
             . ' `refresh_expires_date` = :refreshExpiresInSeconds'
             . ' WHERE `client_id` = :clientId';
 
