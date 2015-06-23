@@ -31,8 +31,11 @@ class Phapic
     protected function getAccessToken()
     {
         if (!isset($this->tokens)) {
+            $previouslySet = false;
             $tokens = $this->storage->getTokens();
+            $this->tokens = $tokens;
         } else {
+            $previouslySet = true;
             $tokens = $this->tokens;
         }
 
@@ -41,7 +44,7 @@ class Phapic
             $expiresDate = new DateTime($tokens['expires_date']);
             $refreshExpiresDate = new DateTime($tokens['refresh_expires_date']);
 
-            if ($expiresDate > $currentDate) {
+            if ($previouslySet && $expiresDate > $currentDate) {
                 return $tokens['access_token'];
             }
         }
