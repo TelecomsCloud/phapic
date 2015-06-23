@@ -4,8 +4,10 @@ namespace Tc\Phapic;
 
 class Filters
 {
-    static public function extractQueryParams($uri)
+    static public function extractCodeFromQueryParams($uri)
     {
-        return parse_url($uri, PHP_URL_QUERY);
+        $params = parse_url($uri, PHP_URL_QUERY);
+
+        return $params['code'];
     }
 }

@@ -191,7 +191,7 @@
                     "type": "string",
                     "filters": [
                         {
-                          "method": "\\Tc\\Phapic\\Filters::extractQueryParams",
+                          "method": "\\Tc\\Phapic\\Filters::extractCodeFromQueryParams",
                           "args": ["@value"]
                         }
                     ]
