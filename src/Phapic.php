@@ -69,7 +69,7 @@ class Phapic
     {
         return $this->client->oauth2AuthorizeCode(
             [
-                'authorize' => $authorize,
+                'authorize' => (bool) $authorize,
                 'client_id' => $clientId,
                 'state' => $state
             ]
