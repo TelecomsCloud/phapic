@@ -70,9 +70,9 @@ class Phapic
 
         $this->storage->setTokens(
             $grantResponse['access_token'],
-            $expiresDate,
+            $expiresDate->format('Y-m-d H:i:s'),
             $grantResponse['refresh_token'],
-            $refreshExpiresDate
+            $refreshExpiresDate->format('Y-m-d H:i:s')
         );
 
         return $grantResponse['access_token'];
