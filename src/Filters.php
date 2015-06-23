@@ -6,7 +6,8 @@ class Filters
 {
     static public function extractCodeFromQueryParams($uri)
     {
-        $params = parse_url($uri, PHP_URL_QUERY);
+        $queryString = parse_url($uri, PHP_URL_QUERY);
+        parse_str($queryString, $params);
 
         return $params['code'];
     }
