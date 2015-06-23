@@ -112,7 +112,7 @@ class Phapic
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        $this->client->formatNumberE164(
+        return $this->client->formatNumberE164(
             [
                 'number' => $number,
                 'location' => $location,
@@ -127,7 +127,7 @@ class Phapic
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        $this->client->formatNumberInternational(
+        return $this->client->formatNumberInternational(
             [
                 'number' => $number,
                 'providedLocation' => $providedLocation,
@@ -143,7 +143,7 @@ class Phapic
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        $this->client->formatNumberNational(
+        return $this->client->formatNumberNational(
             [
                 'number' => $number,
                 'location' => $location,
@@ -158,7 +158,7 @@ class Phapic
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        $this->client->formatNumberPretty(
+        return $this->client->formatNumberPretty(
             [
                 'number' => $number,
                 'location' => $location
