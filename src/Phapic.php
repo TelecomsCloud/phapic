@@ -16,6 +16,8 @@ class Phapic
 
     protected $clientSecret;
 
+    protected $tokens;
+
     public function __construct($baseUri, StorageInterface $storage, $clientId, $clientSecret, $proxy = false)
     {
         $this->client = new Client($baseUri, $proxy);
@@ -27,8 +29,11 @@ class Phapic
 
     protected function getAccessToken()
     {
-        // TODO: store and prevent query if stored info is valid
-        $tokens = $this->storage->getTokens();
+        if (!isset($this->tokens)) {
+            $tokens = $this->storage->getTokens();
+        } else {
+            $tokens = $this->tokens;
+        }
 
         if ($tokens) {
             $currentDate = new DateTime('now');
