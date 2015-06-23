@@ -108,7 +108,7 @@ class Phapic
         );
     }
 
-    public function formatNumberE164($number, $location, $pretty = false)
+    public function formatNumberE164($number, $location, $pretty = '0')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
@@ -123,7 +123,7 @@ class Phapic
     }
 
 
-    public function formatNumberInternational($number, $providedLocation, $dialFromLocation, $pretty = false)
+    public function formatNumberInternational($number, $providedLocation, $dialFromLocation, $pretty = '0')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
@@ -139,7 +139,7 @@ class Phapic
     }
 
 
-    public function formatNumberNational($number, $location, $pretty = false)
+    public function formatNumberNational($number, $location, $pretty = '0')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
