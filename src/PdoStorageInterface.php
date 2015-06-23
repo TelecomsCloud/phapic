@@ -67,18 +67,18 @@ class PdoStorageInterface implements StorageInterface
      *
      * @return bool result of update query
      */
-    public function setTokens($accessToken, $expiresInSeconds, $refreshToken, $refreshExpiresInSeconds)
+    public function setTokens($accessToken, $expiresDate, $refreshToken, $refreshExpiresDate)
     {
-        $now = new DateTime('now');
-
-        $expiresDate = clone $now;
-        $expiresDate->add(new DateInterval('PT' . $expiresInSeconds . 'S'));
-
-        $expiresDate = $expiresDate->format('Y-m-d H:i:s');
-
-        $refreshExpiresDate = clone $now;
-        $refreshExpiresDate->add(new DateInterval('PT' . $refreshExpiresInSeconds . 'S'));
-        $refreshExpiresDate = $refreshExpiresDate->format('Y-m-d H:i:s');
+//        $now = new DateTime('now');
+//
+//        $expiresDate = clone $now;
+//        $expiresDate->add(new DateInterval('PT' . $expiresInSeconds . 'S'));
+//
+//        $expiresDate = $expiresDate->format('Y-m-d H:i:s');
+//
+//        $refreshExpiresDate = clone $now;
+//        $refreshExpiresDate->add(new DateInterval('PT' . $refreshExpiresInSeconds . 'S'));
+//        $refreshExpiresDate = $refreshExpiresDate->format('Y-m-d H:i:s');
 
         $query = 'INSERT INTO ' . $this->tableName
             . ' SET `client_id` = :clientId,'
@@ -146,6 +146,10 @@ class PdoStorageInterface implements StorageInterface
         }
 
         $results = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($statement->rowCount() < 1) {
+            return false;
+        }
 
         $this->tokens = $results;
 

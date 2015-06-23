@@ -2,6 +2,7 @@
 namespace Tc\Phapic;
 
 
+use DateInterval;
 use DateTime;
 use GuzzleHttp\Exception\ClientException;
 
@@ -31,30 +32,35 @@ class Phapic
     protected function getAccessToken()
     {
         if (!isset($this->tokens)) {
-            $previouslySet = false;
             $tokens = $this->storage->getTokens();
             $this->tokens = $tokens;
         } else {
-            $previouslySet = true;
             $tokens = $this->tokens;
         }
 
-        if ($tokens) {
-            $currentDate = new DateTime('now');
+        $grantResponse = null;
+        $refreshExpiresSeconds = 28 * (24 * 60 * 60); // 28 Days
+        $currentDate = new DateTime('now');
+
+        if (is_array($tokens)) {
             $expiresDate = new DateTime($tokens['expires_date']);
             $refreshExpiresDate = new DateTime($tokens['refresh_expires_date']);
 
-            if ($previouslySet && $expiresDate > $currentDate) {
+            if ($expiresDate > $currentDate) {
                 return $tokens['access_token'];
             }
-        }
-
-        $grantResponse = null;
-
-        if (!$tokens || ($refreshExpiresDate < $currentDate)) {
+        } else { // No stored token
             $authResponse = $this->oauth2AuthorizeCode('1', $this->clientId, 'abc123');
             $grantResponse = $this->oauth2GrantCode($authResponse['code'], $this->clientId, $this->clientSecret);
-        } elseif ($expiresDate < $currentDate) {
+
+            $expiresDate = $this->nowPlusSeconds($grantResponse['expires_in']);
+            $refreshExpiresDate = $this->nowPlusSeconds($refreshExpiresSeconds);
+        }
+
+        if ($refreshExpiresDate < $currentDate) { // refresh expired
+            $authResponse = $this->oauth2AuthorizeCode('1', $this->clientId, 'abc123');
+            $grantResponse = $this->oauth2GrantCode($authResponse['code'], $this->clientId, $this->clientSecret);
+        } elseif ($expiresDate < $currentDate) { // token expired
             $grantResponse = $this->oauth2GrantRefresh($tokens['refresh_token'], $this->clientId, $this->clientSecret);
         }
 
@@ -62,16 +68,23 @@ class Phapic
             throw new \Exception('There was a problem getting API authorization.');
         }
 
-        $refreshExpiresSeconds = 28 * (24 * 60 * 60); // 28 Days
-
         $this->storage->setTokens(
             $grantResponse['access_token'],
-            $grantResponse['expires_in'],
+            $expiresDate,
             $grantResponse['refresh_token'],
-            $refreshExpiresSeconds
+            $refreshExpiresDate
         );
 
         return $grantResponse['access_token'];
+    }
+
+
+    protected function nowPlusSeconds($seconds)
+    {
+        $dateTime = new DateTime('now');
+        $dateTime->add(new DateInterval('PT' . $seconds . 'S'));
+
+        return $dateTime;
     }
 
 
