@@ -3,6 +3,7 @@ namespace Tc\Phapic;
 
 
 use DateTime;
+use GuzzleHttp\Exception\ClientException;
 
 class Phapic
 {

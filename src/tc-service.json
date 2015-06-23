@@ -115,17 +115,17 @@
             "parameters": {
                 "authorize": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 },
                 "client_id": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 },
                 "state": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 }
             }
@@ -137,17 +137,17 @@
             "parameters": {
                 "code": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 },
                 "client_id": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 },
                 "client_secret": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 }
             }
@@ -159,17 +159,17 @@
             "parameters": {
                 "refresh_token": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 },
                 "client_id": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 },
                 "client_secret": {
                   "type": "string",
-                  "location": "body",
+                  "location": "json",
                   "required": true
                 }
             }
