@@ -1,6 +1,7 @@
 <?php
 namespace Tc\Phapic;
 
+use DateTime;
 use PDO;
 
 class PdoStorageInterface implements StorageInterface
@@ -13,6 +14,8 @@ class PdoStorageInterface implements StorageInterface
      */
     protected $pdo;
     protected $tableName;
+
+    protected $tokens;
 
     /**
      * @param string $clientId Registered client ID
@@ -56,7 +59,6 @@ class PdoStorageInterface implements StorageInterface
      *
      * Commit tokens to persistent storage
      *
-     * @param string $clientId
      * @param string $accessToken
      * @param int $expiresInSeconds
      * @param string $refreshToken
@@ -64,24 +66,56 @@ class PdoStorageInterface implements StorageInterface
      *
      * @return bool result of update query
      */
-    public function setTokens($clientId, $accessToken, $expiresInSeconds, $refreshToken, $refreshExpiresInSeconds)
+    public function setTokens($accessToken, $expiresInSeconds, $refreshToken, $refreshExpiresInSeconds)
     {
-        $query = 'UPDATE ' . $this->tableName
-            . ' SET `access_token` = :accessToken,'
-            . ' `expires_date` = :expiresInSeconds,'
+        $now = new DateTime('now');
+
+        $expiresDate = clone $now;
+        $expiresDate->add(new \DateInterval('PT' . $expiresInSeconds . 'S'));
+        $expiresDate = $expiresDate->format('Y-m-d h:i:s');
+
+        $refreshExpiresDate = clone $now;
+        $refreshExpiresDate->add(new \DateInterval('PT' . $refreshExpiresInSeconds . 'S'));
+        $refreshExpiresDate = $refreshExpiresDate->format('Y-m-d h:i:s');
+
+
+        $query = 'INSERT INTO ' . $this->tableName
+            . ' SET `client_id` = :clientId,'
+            . ' `client_secret` = :clientSecret,'
+            . ' `access_token` = :accessToken,'
+            . ' `expires_date` = :expiresDate,'
             . ' `refresh_token` = :refreshToken,'
-            . ' `refresh_expires_date` = :refreshExpiresInSeconds'
-            . ' WHERE `client_id` = :clientId';
+            . ' `refresh_expires_date` = :refreshExpiresDate'
+            . ' ON DUPLICATE KEY UPDATE'
+            . ' `access_token` = :accessToken2,'
+            . ' `expires_date` = :expiresDate2,'
+            . ' `refresh_token` = :refreshToken2,'
+            . ' `refresh_expires_date` = :refreshExpiresDate2';
+
 
         $statement = $this->pdo->prepare($query);
 
+        $statement->bindParam(':clientId', $this->clientId);
+        $statement->bindParam(':clientSecret', $this->clientSecret);
         $statement->bindParam(':accessToken', $accessToken);
-        $statement->bindParam(':expiresInSeconds', $expiresInSeconds);
+        $statement->bindParam(':expiresDate', $expiresDate);
         $statement->bindParam(':refreshToken', $refreshToken);
-        $statement->bindParam(':refreshExpiresInSeconds', $expiresInSeconds);
-        $statement->bindParam(':clientId', $clientId);
+        $statement->bindParam(':refreshExpiresDate', $refreshExpiresDate);
+        $statement->bindParam(':accessToken2', $accessToken);
+        $statement->bindParam(':expiresDate2', $expiresDate);
+        $statement->bindParam(':refreshToken2', $refreshToken);
+        $statement->bindParam(':refreshExpiresDate2', $refreshExpiresDate);
 
-        return $statement->execute();
+        $result = $statement->execute();
+
+        $this->tokens = [
+            `access_token` => $accessToken,
+            `expires_date` => $expiresDate,
+            `refresh_token` => $refreshToken,
+            `refresh_expires_date` => $refreshExpiresDate
+        ];
+
+        return $result;
     }
 
 
@@ -94,18 +128,26 @@ class PdoStorageInterface implements StorageInterface
      */
     public function getTokens()
     {
+        if (isset($this->tokens)) {
+            return $this->tokens;
+        }
+
         $query = 'SELECT `access_token`, `expires_date`, `refresh_token`, `refresh_expires_date`'
             . ' FROM ' . $this->tableName
             . ' WHERE `client_id` = :clientId';
 
         $statement = $this->pdo->prepare($query);
 
-        $statement->bindParam(':clientId', $clientId);
+        $statement->bindParam(':clientId', $this->clientId);
 
         if (!$statement->execute() || $statement->rowCount() !== 1) {
             return false;
         }
 
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        $results = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $this->tokens = $results;
+
+        return $this->tokens;
     }
 }
