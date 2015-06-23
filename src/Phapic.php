@@ -27,6 +27,7 @@ class Phapic
 
     protected function getAccessToken()
     {
+        // TODO: store and prevent query if stored info is valid
         $tokens = $this->storage->getTokens();
 
         if ($tokens) {
@@ -42,7 +43,7 @@ class Phapic
         $grantResponse = null;
 
         if (!$tokens || ($refreshExpiresDate < $currentDate)) {
-            $authResponse = $this->oauth2AuthorizeCode(true, $this->clientId, $this->clientSecret);
+            $authResponse = $this->oauth2AuthorizeCode('1', $this->clientId, 'abc123');
             $grantResponse = $this->oauth2GrantCode($authResponse['code'], $this->clientId, $this->clientSecret);
         } elseif ($expiresDate < $currentDate) {
             $grantResponse = $this->oauth2GrantRefresh($tokens['refresh_token'], $this->clientId, $this->clientSecret);
