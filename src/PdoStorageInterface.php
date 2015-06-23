@@ -16,7 +16,7 @@ class PdoStorageInterface implements StorageInterface
     protected $pdo;
     protected $tableName;
 
-    protected $tokens;
+    protected $token;
 
     /**
      * @param string $clientId Registered client ID
@@ -42,8 +42,6 @@ class PdoStorageInterface implements StorageInterface
                    `client_secret` varchar(80) NOT NULL,
                    `access_token` varchar(40) NOT NULL,
                    `expires_date` datetime NOT NULL,
-                   `refresh_token` varchar(40) NOT NULL,
-                   `refresh_expires_date` datetime NOT NULL,
                    PRIMARY KEY (`client_id`)
                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;';
 
@@ -56,31 +54,25 @@ class PdoStorageInterface implements StorageInterface
     }
 
     /**
-     * setTokens
+     * setToken
      *
-     * Commit tokens to persistent storage
+     * Commit token to persistent storage
      *
      * @param string $accessToken
-     * @param int $expiresInSeconds
-     * @param string $refreshToken
-     * @param int $refreshExpiresInSeconds
-     *
+     * @param string $expiresDate
      * @return bool result of update query
+     *
      */
-    public function setTokens($accessToken, $expiresDate, $refreshToken, $refreshExpiresDate)
+    public function setToken($accessToken, $expiresDate, $refreshToken, $refreshExpiresDate)
     {
         $query = 'INSERT INTO ' . $this->tableName
             . ' SET `client_id` = :clientId,'
             . ' `client_secret` = :clientSecret,'
             . ' `access_token` = :accessToken,'
             . ' `expires_date` = :expiresDate,'
-            . ' `refresh_token` = :refreshToken,'
-            . ' `refresh_expires_date` = :refreshExpiresDate'
             . ' ON DUPLICATE KEY UPDATE'
             . ' `access_token` = :accessToken2,'
             . ' `expires_date` = :expiresDate2,'
-            . ' `refresh_token` = :refreshToken2,'
-            . ' `refresh_expires_date` = :refreshExpiresDate2';
 
 
         $statement = $this->pdo->prepare($query);
@@ -89,20 +81,14 @@ class PdoStorageInterface implements StorageInterface
         $statement->bindParam(':clientSecret', $this->clientSecret);
         $statement->bindParam(':accessToken', $accessToken);
         $statement->bindParam(':expiresDate', $expiresDate);
-        $statement->bindParam(':refreshToken', $refreshToken);
-        $statement->bindParam(':refreshExpiresDate', $refreshExpiresDate);
         $statement->bindParam(':accessToken2', $accessToken);
         $statement->bindParam(':expiresDate2', $expiresDate);
-        $statement->bindParam(':refreshToken2', $refreshToken);
-        $statement->bindParam(':refreshExpiresDate2', $refreshExpiresDate);
 
         $result = $statement->execute();
 
-        $this->tokens = [
+        $this->token = [
             `access_token` => $accessToken,
-            `expires_date` => $expiresDate,
-            `refresh_token` => $refreshToken,
-            `refresh_expires_date` => $refreshExpiresDate
+            `expires_date` => $expiresDate
         ];
 
         return $result;
@@ -110,19 +96,19 @@ class PdoStorageInterface implements StorageInterface
 
 
     /**
-     * getTokens
+     * getToken
      *
-     * Retrieve tokens from persistent storage
+     * Retrieve token from persistent storage
      *
      * @return bool|mixed access credentials if found, else false
      */
-    public function getTokens()
+    public function getToken()
     {
-        if (isset($this->tokens)) {
-            return $this->tokens;
+        if (isset($this->token)) {
+            return $this->token;
         }
 
-        $query = 'SELECT `access_token`, `expires_date`, `refresh_token`, `refresh_expires_date`'
+        $query = 'SELECT `access_token`, `expires_date`'
             . ' FROM ' . $this->tableName
             . ' WHERE `client_id` = :clientId';
 
@@ -140,8 +126,8 @@ class PdoStorageInterface implements StorageInterface
             return false;
         }
 
-        $this->tokens = $results;
+        $this->token = $results;
 
-        return $this->tokens;
+        return $this->token;
     }
 }

@@ -1,9 +1,8 @@
 <?php
 namespace Tc\Phapic;
 
-
 interface StorageInterface
 {
-    public function setTokens($accessToken, $expiresDate, $refreshToken, $refreshExpiresDate);
-    public function getTokens();
+    public function setToken($accessToken, $expiresDate);
+    public function getToken();
 }

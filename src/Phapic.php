@@ -18,7 +18,7 @@ class Phapic
 
     protected $clientSecret;
 
-    protected $tokens;
+    protected $token;
 
     public function __construct($baseUri, StorageInterface $storage, $clientId, $clientSecret, $proxy = false)
     {
@@ -31,48 +31,34 @@ class Phapic
 
     protected function getAccessToken()
     {
-        if (!isset($this->tokens)) {
-            $tokens = $this->storage->getTokens();
-            $this->tokens = $tokens;
+        if (!isset($this->token)) {
+            $this->token = $this->storage->getToken();
+            $token = $this->token;
         } else {
-            $tokens = $this->tokens;
+            $token = $this->token;
+        }
+
+        if ($token) {
+            $expiresDate = new DateTime($tokens['expires_date']);
         }
 
         $grantResponse = null;
-        $refreshExpiresSeconds = 28 * (24 * 60 * 60); // 28 Days
         $currentDate = new DateTime('now');
+       
+        if (!is_array($token) || $expiresDate < $currentDate) {
+            $grantResponse = $this->oauth2GrantClient($this->clientId, $this->clientSecret);
 
-        if (is_array($tokens)) {
-            $expiresDate = new DateTime($tokens['expires_date']);
-            $refreshExpiresDate = new DateTime($tokens['refresh_expires_date']);
-
-            if ($expiresDate > $currentDate) {
-                return $tokens['access_token'];
+            if (!$grantResponse) {
+                throw new \Exception('There was a problem getting API authorization.');
             }
-        } else { // No stored token
-            $authResponse = $this->oauth2AuthorizeCode('1', $this->clientId, 'abc123');
-            $grantResponse = $this->oauth2GrantCode($authResponse['code'], $this->clientId, $this->clientSecret);
 
             $expiresDate = $this->nowPlusSeconds($grantResponse['expires_in']);
-            $refreshExpiresDate = $this->nowPlusSeconds($refreshExpiresSeconds);
         }
 
-        if ($refreshExpiresDate < $currentDate) { // refresh expired
-            $authResponse = $this->oauth2AuthorizeCode('1', $this->clientId, 'abc123');
-            $grantResponse = $this->oauth2GrantCode($authResponse['code'], $this->clientId, $this->clientSecret);
-        } elseif ($expiresDate < $currentDate) { // token expired
-            $grantResponse = $this->oauth2GrantRefresh($tokens['refresh_token'], $this->clientId, $this->clientSecret);
-        }
-
-        if (!$grantResponse) {
-            throw new \Exception('There was a problem getting API authorization.');
-        }
-
-        $this->storage->setTokens(
+        $this->storage->setToken(
             $grantResponse['access_token'],
             $expiresDate->format('Y-m-d H:i:s'),
-            $grantResponse['refresh_token'],
-            $refreshExpiresDate->format('Y-m-d H:i:s')
+            $grantResponse['refresh_token']
         );
 
         return $grantResponse['access_token'];
@@ -88,40 +74,16 @@ class Phapic
     }
 
 
-    protected function oauth2AuthorizeCode($authorize, $clientId, $state)
+    protected function oauth2GrantClient($clientId, $clientSecret)
     {
-        return $this->client->oauth2AuthorizeCode(
+        return $this->client->oauth2GrantClient(
             [
-                'authorize' => $authorize,
-                'client_id' => $clientId,
-                'state' => $state
-            ]
-        );
-    }
-
-
-    protected function oauth2GrantCode($code, $clientId, $clientSecret)
-    {
-        return $this->client->oauth2GrantCode(
-            [
-                'code' => $code,
                 'client_id' => $clientId,
                 'client_secret' => $clientSecret
             ]
         );
     }
 
-
-    protected function oauth2GrantRefresh($refreshToken, $clientId, $clientSecret)
-    {
-        return $this->client->oauth2GrantCode(
-            [
-                'refresh_token' => $refreshToken,
-                'client_id' => $clientId,
-                'client_secret' => $clientSecret
-            ]
-        );
-    }
 
     public function formatNumberE164($number, $location, $pretty = '0')
     {
