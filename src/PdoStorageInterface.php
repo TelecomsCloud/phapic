@@ -56,6 +56,7 @@ class PdoStorageInterface implements StorageInterface
      *
      * Commit tokens to persistent storage
      *
+     * @param string $clientId
      * @param string $accessToken
      * @param int $expiresInSeconds
      * @param string $refreshToken
@@ -63,7 +64,7 @@ class PdoStorageInterface implements StorageInterface
      *
      * @return bool result of update query
      */
-    public function setTokens($accessToken, $expiresInSeconds, $refreshToken, $refreshExpiresInSeconds)
+    public function setTokens($clientId, $accessToken, $expiresInSeconds, $refreshToken, $refreshExpiresInSeconds)
     {
         $query = 'UPDATE ' . $this->tableName
             . ' SET `access_token` = :accessToken,'
@@ -78,6 +79,7 @@ class PdoStorageInterface implements StorageInterface
         $statement->bindParam(':expiresInSeconds', $expiresInSeconds);
         $statement->bindParam(':refreshToken', $refreshToken);
         $statement->bindParam(':refreshExpiresInSeconds', $expiresInSeconds);
+        $statement->bindParam(':clientId', $clientId);
 
         return $statement->execute();
     }
