@@ -11,24 +11,31 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  * Guzzle based client for the Telecoms Cloud API
  *
  * @package TcApi
+ *
  * @method check
  * @method echo
+ *
  * @method formatNumberE164
  * @method formatNumberNational
  * @method formatNumberInternational
  * @method formatNumberPretty
+ *
+ * @method oauth2AuthorizeCode
+ * @method oauth2GrantCode
+ * @method oauth2GrantRefresh
  */
 class Client extends GuzzleClient
 {
     const API_VERSION = 1;
 
+    /** @var GuzClient $guzzleClient */
+    protected $guzzleClient;
+
     /**
      * @param string $baseUri TelecomsCloud API base URI, usually https://api.telecomscloud.com
-     * @param string $sid a valid account sid
-     * @param string $token a valid account token
      * @param bool $proxy optional http proxy address for development & testing
      */
-    public function __construct($baseUri, $sid, $token, $proxy = false)
+    public function __construct($baseUri, $proxy = false)
     {
         $config = [];
 
@@ -42,8 +49,13 @@ class Client extends GuzzleClient
         $description = new Description($serviceDescription);
 
         $client = new GuzClient(['base_url' => $baseUri]);
-        $client->setDefaultOption('auth', [$sid, $token]);
 
         parent::__construct($client, $description, $config);
+    }
+
+
+    public function setBearerToken($accessToken)
+    {
+        $this->guzzleClient->setDefaultOption('headers/authorization', 'Bearer ' . $accessToken);
     }
 }

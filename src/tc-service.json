@@ -107,6 +107,72 @@
                     "required": true
                 }
             }
+        },
+        "oauth2AuthorizeCode": {
+            "httpMethod": "POST",
+            "uri": "/v1/authorization/oauth2/authorize-code",
+            "responseModel":  "authCodeResponse",
+            "parameters": {
+                "authorize": {
+                  "type": "bool",
+                  "location": "body",
+                  "required": true
+                },
+                "client_id": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                },
+                "state": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                }
+            }
+        },
+        "oauth2GrantCode": {
+            "httpMethod": "POST",
+            "uri": "/v1/authorization/oauth2/grant-code",
+            "responseModel":  "getResponse",
+            "parameters": {
+                "code": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                },
+                "client_id": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                },
+                "client_secret": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                }
+            }
+        },
+        "oauth2GrantRefresh": {
+            "httpMethod": "POST",
+            "uri": "/v1/authorization/oauth2/grant-refresh",
+            "responseModel":  "getResponse",
+            "parameters": {
+                "refresh_token": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                },
+                "client_id": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                },
+                "client_secret": {
+                  "type": "string",
+                  "location": "body",
+                  "required": true
+                }
+            }
         }
     },
     "models":  {
@@ -114,6 +180,22 @@
             "type":  "object",
             "additionalProperties":  {
                 "location":  "json"
+            }
+        },
+        "authCodeResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "location": "header",
+                    "sentAs": "location",
+                    "type": "string",
+                    "filters": [
+                        {
+                          "method": "\\Tc\\Phapic\\Filters::extractQueryParams",
+                          "args": ["@value"]
+                        }
+                    ]
+                }
             }
         }
     }
