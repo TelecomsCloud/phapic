@@ -69,7 +69,7 @@ class PdoStorageInterface implements StorageInterface
             . ' SET `client_id` = :clientId,'
             . ' `client_secret` = :clientSecret,'
             . ' `access_token` = :accessToken,'
-            . ' `expires_date` = :expiresDate,'
+            . ' `expires_date` = :expiresDate'
             . ' ON DUPLICATE KEY UPDATE'
             . ' `access_token` = :accessToken2,'
             . ' `expires_date` = :expiresDate2';
@@ -81,6 +81,7 @@ class PdoStorageInterface implements StorageInterface
         $statement->bindParam(':clientSecret', $this->clientSecret);
         $statement->bindParam(':accessToken', $accessToken);
         $statement->bindParam(':expiresDate', $expiresDate);
+
         $statement->bindParam(':accessToken2', $accessToken);
         $statement->bindParam(':expiresDate2', $expiresDate);
 
