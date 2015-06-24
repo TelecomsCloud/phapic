@@ -45,7 +45,7 @@ class Phapic
         $grantResponse = null;
         $currentDate = new DateTime('now');
        
-        if (!is_array($token) || $expiresDate < $currentDate) {
+        if (!is_array($token) || (isset($expiresDate) && $expiresDate < $currentDate)) {
             $grantResponse = $this->oauth2GrantClient($this->clientId, $this->clientSecret);
 
             if (!$grantResponse) {
@@ -57,8 +57,7 @@ class Phapic
 
         $this->storage->setToken(
             $grantResponse['access_token'],
-            $expiresDate->format('Y-m-d H:i:s'),
-            $grantResponse['refresh_token']
+            $expiresDate->format('Y-m-d H:i:s')
         );
 
         return $grantResponse['access_token'];
