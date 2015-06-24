@@ -39,7 +39,7 @@ class Phapic
         }
 
         if ($token) {
-            $expiresDate = new DateTime($tokens['expires_date']);
+            $expiresDate = new DateTime($token['expires_date']);
         }
 
         $grantResponse = null;
