@@ -88,8 +88,8 @@ class PdoStorageInterface implements StorageInterface
         $result = $statement->execute();
 
         $this->token = [
-            `access_token` => $accessToken,
-            `expires_date` => $expiresDate
+            'access_token' => $accessToken,
+            'expires_date' => $expiresDate
         ];
 
         return $result;
