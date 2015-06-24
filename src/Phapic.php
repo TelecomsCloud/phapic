@@ -40,12 +40,12 @@ class Phapic
         }
 
         if ($this->token) {
-            $expiresDate = new DateTime($token['expires_date']);
+            $expiresDate = new DateTime($this->token['expires_date']);
         }
 
         $currentDate = new DateTime('now');
     
-        if (!is_array($token) || (isset($expiresDate) && $expiresDate < $currentDate)) {
+        if (!is_array($this->token) || (isset($expiresDate) && $expiresDate < $currentDate)) {
             $grantResponse = $this->oauth2GrantClient($this->clientId, $this->clientSecret);
 
             if (!$grantResponse) {
