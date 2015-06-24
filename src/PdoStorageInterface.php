@@ -63,7 +63,7 @@ class PdoStorageInterface implements StorageInterface
      * @return bool result of update query
      *
      */
-    public function setToken($accessToken, $expiresDate, $refreshToken, $refreshExpiresDate)
+    public function setToken($accessToken, $expiresDate)
     {
         $query = 'INSERT INTO ' . $this->tableName
             . ' SET `client_id` = :clientId,'
