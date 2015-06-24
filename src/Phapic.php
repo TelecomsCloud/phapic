@@ -32,19 +32,19 @@ class Phapic
     protected function getAccessToken()
     {
         if (!isset($this->token)) {
-            $this->token = $this->storage->getToken();
-            $token = $this->token;
-        } else {
-            $token = $this->token;
+            $getToken = $this->storage->getToken();
+            
+            if ($getToken) {
+		$this->token = $getToken;
+            }
         }
 
-        if ($token) {
+        if ($this->token) {
             $expiresDate = new DateTime($token['expires_date']);
         }
 
-        $grantResponse = null;
         $currentDate = new DateTime('now');
-       
+    
         if (!is_array($token) || (isset($expiresDate) && $expiresDate < $currentDate)) {
             $grantResponse = $this->oauth2GrantClient($this->clientId, $this->clientSecret);
 
@@ -53,14 +53,19 @@ class Phapic
             }
 
             $expiresDate = $this->nowPlusSeconds($grantResponse['expires_in']);
+ 
+            $this->storage->setToken(
+               $grantResponse['access_token'],
+               $expiresDate->format('Y-m-d H:i:s')
+            );
+
+            $this->token = [
+                'access_token' => $grantResponse['access_token'],
+                'expires_in' => $expiresDate->format('Y-m-d H:i:s')
+            ];
         }
 
-        $this->storage->setToken(
-            $grantResponse['access_token'],
-            $expiresDate->format('Y-m-d H:i:s')
-        );
-
-        return $grantResponse['access_token'];
+        return $this->token['access_token'];
     }
 
 
