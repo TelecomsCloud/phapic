@@ -15,38 +15,40 @@ Install the clients dependencies using composer (https://getcomposer.org)
 
     composer install
 
-##Basic Use
+## Basic Use
 
 ```php
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$apiBaseUri = 'https://api.telecomscloud.com/';
-$sid = '...';
-$token = '...';
+$baseUri = 'https://api.telecomscloud.com';
+$clientId = '...';
+$clientSecret = '...';
 
-$client = new Tc\Phapic\Client($apiBaseUri, $sid, $token);
+$dsn = '...';
+$dbUsername = '...';
+$dbPassword = '...';
 
-var_dump($client->formatNumberE164(['number' => '01514962245', 'location' => 'GB']));
-var_dump($client->formatNumberNational(['number' => '+441514962245', 'location' => 'GB']));
-var_dump($client->formatNumberInternational(['number' => '01514962245', 'providedLocation' => 'GB', 'dialFromLocation' => 'US']));
-var_dump($client->formatNumberPretty(['number' => '01514962245', 'location' => 'GB']));
+
+$pdo = new PDO($dsn, $dbUsername, $dbPassword);
+$storage = new \Tc\Phapic\PdoStorageInterface($clientId, $clientSecret, $pdo);
+
+$phapic = new \Tc\Phapic\Phapic($baseUri, $storage, $clientId, $clientSecret);
+
+var_dump($phapic->formatNumberE164('01515554202', 'GB'));
+var_dump($phapic->formatNumberE164('01515554202', 'GB', '1'));
+
 ```
 
 ```
 array(1) {
-  'number' =>
-  string(13) "+441514962245"
+  ["number"]=>
+  string(16) "+441515554202"
 }
+
 array(1) {
-  'number' =>
-  string(11) "01514962245"
+  ["number"]=>
+  string(16) "+44 151 555 4202"
 }
-array(1) {
-  'number' =>
-  string(15) "011441514962245"
-}
-array(1) {
-  'number' =>
-  string(13) "0151 496 2245"
-}
+
 ```
