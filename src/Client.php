@@ -23,6 +23,7 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  * @method oauth2AuthorizeCode
  * @method oauth2GrantCode
  * @method oauth2GrantRefresh
+ * @method oauth2GrantClient
  */
 class Client extends GuzzleClient
 {

@@ -173,6 +173,23 @@
                   "required": true
                 }
             }
+        },
+        "oauth2GrantClient": {
+          "httpMethod": "POST",
+          "uri": "/v1/authorization/oauth2/grant-client",
+          "responseModel":  "getResponse",
+          "parameters": {
+            "client_id": {
+              "type": "string",
+              "location": "json",
+              "required": true
+            },
+            "client_secret": {
+              "type": "string",
+              "location": "json",
+              "required": true
+            }
+          }
         }
     },
     "models":  {

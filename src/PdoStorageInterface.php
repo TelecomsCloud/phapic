@@ -72,7 +72,7 @@ class PdoStorageInterface implements StorageInterface
             . ' `expires_date` = :expiresDate,'
             . ' ON DUPLICATE KEY UPDATE'
             . ' `access_token` = :accessToken2,'
-            . ' `expires_date` = :expiresDate2,'
+            . ' `expires_date` = :expiresDate2';
 
 
         $statement = $this->pdo->prepare($query);
