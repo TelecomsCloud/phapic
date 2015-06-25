@@ -190,6 +190,11 @@
               "required": true
             }
           }
+        },
+        "accountInfo": {
+          "httpMethod": "GET",
+          "uri" : "/v1/account/info",
+          "responseModel" : "getResponse"
         }
     },
     "models":  {

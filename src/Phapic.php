@@ -146,4 +146,13 @@ class Phapic
             ]
         );
     }
+
+
+    public function accountInfo()
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->accountInfo();
+    }
+
 }
