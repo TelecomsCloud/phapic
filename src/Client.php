@@ -12,17 +12,11 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  *
  * @package TcApi
  *
- * @method check
- * @method echo
- *
  * @method formatNumberE164
  * @method formatNumberNational
  * @method formatNumberInternational
  * @method formatNumberPretty
  *
- * @method oauth2AuthorizeCode
- * @method oauth2GrantCode
- * @method oauth2GrantRefresh
  * @method oauth2GrantClient
  * @method accountInfo
  */

@@ -3,23 +3,6 @@
     "apiVersion": "v1",
     "description": "TelecomsCloud REST API Client",
     "operations": {
-        "check": {
-            "httpMethod": "GET",
-            "uri": "/v1/check",
-            "responseModel":  "getResponse"
-        },
-        "echo":  {
-            "httpMethod":  "GET",
-            "uri":  "/v1/echo/{myString}",
-            "responseModel":  "getResponse",
-            "parameters":  {
-                "myString":  {
-                    "type":  "string",
-                    "location":  "uri",
-                    "required": true
-                }
-            }
-        },
         "formatNumberE164": {
             "httpMethod": "GET",
             "uri": "/v1/format/number/e164/{number}/{location}{?pretty}",
@@ -46,7 +29,7 @@
             "httpMethod": "GET",
             "uri": "/v1/format/number/national/{number}/{location}{?pretty}",
             "responseModel":  "getResponse",
-             "parameters": {            
+             "parameters": {
                 "number": {
                     "type": "string",
                     "location": "uri",
@@ -105,72 +88,6 @@
                     "type": "string",
                     "location": "uri",
                     "required": true
-                }
-            }
-        },
-        "oauth2AuthorizeCode": {
-            "httpMethod": "POST",
-            "uri": "/v1/authorization/oauth2/authorize-code",
-            "responseModel":  "authCodeResponse",
-            "parameters": {
-                "authorize": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                },
-                "client_id": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                },
-                "state": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                }
-            }
-        },
-        "oauth2GrantCode": {
-            "httpMethod": "POST",
-            "uri": "/v1/authorization/oauth2/grant-code",
-            "responseModel":  "getResponse",
-            "parameters": {
-                "code": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                },
-                "client_id": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                },
-                "client_secret": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                }
-            }
-        },
-        "oauth2GrantRefresh": {
-            "httpMethod": "POST",
-            "uri": "/v1/authorization/oauth2/grant-refresh",
-            "responseModel":  "getResponse",
-            "parameters": {
-                "refresh_token": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                },
-                "client_id": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
-                },
-                "client_secret": {
-                  "type": "string",
-                  "location": "json",
-                  "required": true
                 }
             }
         },
