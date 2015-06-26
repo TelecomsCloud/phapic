@@ -155,4 +155,32 @@ class Phapic
         return $this->client->accountInfo();
     }
 
+
+    public function getFaxInfo($lastPointer)
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->$client->getFaxInfo(
+            [
+                'last_pointer' => $lastPointer
+            ]
+
+        );
+
+    }
+
+
+    public function  getFaxInbound($id)
+    {
+        $this->$client->setBearerToken($this->getAccessToken());
+
+        return $this->$client->getFaxInbound(
+          [
+              'id'=>$id
+          ]
+
+        );
+
+    }
+
 }
