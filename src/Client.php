@@ -18,7 +18,11 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  * @method formatNumberPretty
  *
  * @method oauth2GrantClient
+ *
  * @method accountInfo
+ *
+ * @method faxInboundInfo
+ * @method faxInboundId
  */
 class Client extends GuzzleClient
 {

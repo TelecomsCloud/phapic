@@ -112,6 +112,30 @@
           "httpMethod": "GET",
           "uri" : "/v1/account/info",
           "responseModel" : "getResponse"
+        },
+        "faxInboundInfo": {
+          "httpMethod": "GET",
+          "uri": "/v1/fax/inbound/info",
+          "responseModel": "getResponse",
+            "parameters": {
+              "last_pointer": {
+                "type": "string",
+                "location": "json",
+                "required": true
+              }
+            }
+        },
+        "faxInboundId": {
+          "httpMethod": "GET",
+          "uri": "/v1/fax/inbound/{id}",
+          "responseModel": "getResponse",
+            "parameters": {
+              "id": {
+                "type": "string",
+                "location": "json",
+                "required": true
+              }
+          }
         }
     },
     "models":  {
