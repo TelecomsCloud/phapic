@@ -113,26 +113,26 @@
           "uri" : "/v1/account/info",
           "responseModel" : "getResponse"
         },
-        "faxInboundInfo": {
+        "getFaxInfo": {
           "httpMethod": "GET",
-          "uri": "/v1/fax/inbound/info",
+          "uri": "/v1/fax/inbound/info{?last_pointer}",
           "responseModel": "getResponse",
             "parameters": {
               "last_pointer": {
                 "type": "string",
-                "location": "json",
+                "location": "query",
                 "required": true
               }
             }
         },
-        "faxInboundId": {
+        "getInboundFax": {
           "httpMethod": "GET",
           "uri": "/v1/fax/inbound/{id}",
           "responseModel": "getResponse",
             "parameters": {
               "id": {
                 "type": "string",
-                "location": "json",
+                "location": "query",
                 "required": true
               }
           }

@@ -21,8 +21,8 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  *
  * @method accountInfo
  *
- * @method faxInboundInfo
- * @method faxInboundId
+ * @method getFaxInfo
+ * @method getFaxInbound
  */
 class Client extends GuzzleClient
 {
