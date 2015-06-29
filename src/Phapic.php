@@ -176,7 +176,7 @@ class Phapic
 
         return $this->$client->getFaxInbound(
           [
-              'id'=>$id
+              'id' => $id
           ]
 
         );
