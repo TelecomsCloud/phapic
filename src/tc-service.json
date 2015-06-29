@@ -132,7 +132,7 @@
             "parameters": {
               "id": {
                 "type": "string",
-                "location": "path",
+                "location": "uri",
                 "required": true
               }
           }

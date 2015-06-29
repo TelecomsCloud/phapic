@@ -170,11 +170,11 @@ class Phapic
     }
 
 
-    public function  getFaxInbound($id)
+    public function  getInboundFax($id)
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        return $this->client->getFaxInbound(
+        return $this->client->getInboundFax(
           [
               'id' => $id
           ]
