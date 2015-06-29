@@ -128,11 +128,11 @@
         "getInboundFax": {
           "httpMethod": "GET",
           "uri": "/v1/fax/inbound/{id}",
-          "responseModel": "getResponse",
+          "responseModel": "locationLink",
             "parameters": {
               "id": {
                 "type": "string",
-                "location": "path",
+                "location": "uri",
                 "required": true
               }
           }
@@ -158,6 +158,16 @@
                           "args": ["@value"]
                         }
                     ]
+                }
+            }
+        },
+        "locationLink": {
+            "type": "object",
+            "properties": {
+                "downloadLink": {
+                    "location": "header",
+                    "sentAs": "location",
+                    "type": "string"
                 }
             }
         }

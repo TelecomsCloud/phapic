@@ -160,7 +160,7 @@ class Phapic
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        return $this->$client->getFaxInfo(
+        return $this->client->getFaxInfo(
             [
                 'last_pointer' => $lastPointer
             ]
@@ -170,13 +170,13 @@ class Phapic
     }
 
 
-    public function  getFaxInbound($id)
+    public function  getInboundFax($id)
     {
-        $this->$client->setBearerToken($this->getAccessToken());
+        $this->client->setBearerToken($this->getAccessToken());
 
-        return $this->$client->getFaxInbound(
+        return $this->client->getInboundFax(
           [
-              'id'=>$id
+              'id' => $id
           ]
 
         );
