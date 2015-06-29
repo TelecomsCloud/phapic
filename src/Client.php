@@ -51,6 +51,10 @@ class Client extends GuzzleClient
         $client = new GuzClient(['base_url' => $baseUri]);
         $client->setDefaultOption('allow_redirects', false);
 
+        if ($proxy) {
+            $client->setDefaultOption('proxy', $proxy);
+        }
+
         $this->guzzleClient = $client;
 
         parent::__construct($client, $description, $config);
