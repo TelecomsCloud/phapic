@@ -22,7 +22,7 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  * @method accountInfo
  *
  * @method getFaxInfo
- * @method getFaxInbound
+ * @method getInboundFax
  */
 class Client extends GuzzleClient
 {
