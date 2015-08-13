@@ -6,7 +6,7 @@
         "formatNumberE164": {
             "httpMethod": "GET",
             "uri": "/v1/format/number/e164/{number}/{location}{?pretty}",
-            "responseModel":  "getResponse",
+            "responseModel": "getJsonResponse",
             "parameters": {
                 "number": {
                     "type": "string",
@@ -28,8 +28,8 @@
         "formatNumberNational": {
             "httpMethod": "GET",
             "uri": "/v1/format/number/national/{number}/{location}{?pretty}",
-            "responseModel":  "getResponse",
-             "parameters": {
+            "responseModel": "getJsonResponse",
+            "parameters": {
                 "number": {
                     "type": "string",
                     "location": "uri",
@@ -45,12 +45,12 @@
                     "location": "query",
                     "required": false
                 }
-             }
+            }
         },
         "formatNumberInternational": {
             "httpMethod": "GET",
             "uri": "/v1/format/number/international/{number}/{providedLocation}/{dialFromLocation}{?pretty}",
-            "responseModel":  "getResponse",
+            "responseModel": "getJsonResponse",
             "parameters": {
                 "number": {
                     "type": "string",
@@ -77,7 +77,7 @@
         "formatNumberPretty": {
             "httpMethod": "GET",
             "uri": "/v1/format/number/pretty/{number}/{location}",
-            "responseModel":  "getResponse",
+            "responseModel": "getJsonResponse",
             "parameters": {
                 "number": {
                     "type": "string",
@@ -92,57 +92,96 @@
             }
         },
         "oauth2GrantClient": {
-          "httpMethod": "POST",
-          "uri": "/v1/authorization/oauth2/grant-client",
-          "responseModel":  "getResponse",
-          "parameters": {
-            "client_id": {
-              "type": "string",
-              "location": "json",
-              "required": true
-            },
-            "client_secret": {
-              "type": "string",
-              "location": "json",
-              "required": true
+            "httpMethod": "POST",
+            "uri": "/v1/authorization/oauth2/grant-client",
+            "responseModel": "getJsonResponse",
+            "parameters": {
+                "client_id": {
+                    "type": "string",
+                    "location": "json",
+                    "required": true
+                },
+                "client_secret": {
+                    "type": "string",
+                    "location": "json",
+                    "required": true
+                }
             }
-          }
         },
         "accountInfo": {
-          "httpMethod": "GET",
-          "uri" : "/v1/account/info",
-          "responseModel" : "getResponse"
+            "httpMethod": "GET",
+            "uri": "/v1/account/info",
+            "responseModel": "getJsonResponse"
         },
         "getFaxInfo": {
-          "httpMethod": "GET",
-          "uri": "/v1/fax/inbound/info{?last_pointer}",
-          "responseModel": "getResponse",
+            "httpMethod": "GET",
+            "uri": "/v1/fax/inbound/info{?last_pointer}",
+            "responseModel": "getJsonResponse",
             "parameters": {
-              "last_pointer": {
-                "type": "string",
-                "location": "query",
-                "required": true
-              }
+                "last_pointer": {
+                    "type": "string",
+                    "location": "query",
+                    "required": true
+                }
             }
         },
         "getInboundFax": {
-          "httpMethod": "GET",
-          "uri": "/v1/fax/inbound/{id}",
-          "responseModel": "locationLink",
+            "httpMethod": "GET",
+            "uri": "/v1/fax/inbound/{id}",
+            "responseModel": "locationLink",
             "parameters": {
-              "id": {
-                "type": "string",
-                "location": "uri",
-                "required": true
-              }
-          }
+                "id": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                }
+            }
+        },
+        "getSmsStatus": {
+            "httpMethod": "GET",
+            "uri": "v1/sms/outbound/{smsId}/status",
+            "responseModel": "getJsonResponse",
+            "parameters": {
+                "smsId": {
+                    "type": "int",
+                    "location": "uri",
+                    "required": true
+                }
+            }
+        },
+        "sendSms": {
+            "httpMethod": "POST",
+            "uri": "v1/sms/outbound",
+            "response": "getJsonResponse",
+            "parameters": {
+                "to": {
+                    "type": "string",
+                    "location": "json",
+                    "required": true
+                },
+                "from": {
+                    "type": "string",
+                    "location": "json",
+                    "required": true
+                },
+                "message": {
+                    "type": "string",
+                    "location": "json",
+                    "required": true
+                },
+                "numberFormatLocation": {
+                    "type": "string",
+                    "location": "json",
+                    "required": false
+                }
+            }
         }
     },
-    "models":  {
-        "getResponse":  {
-            "type":  "object",
-            "additionalProperties":  {
-                "location":  "json"
+    "models": {
+        "getJsonResponse": {
+            "type": "object",
+            "additionalProperties": {
+                "location": "json"
             }
         },
         "authCodeResponse": {
@@ -154,8 +193,8 @@
                     "type": "string",
                     "filters": [
                         {
-                          "method": "\\Tc\\Phapic\\Filters::extractCodeFromQueryParams",
-                          "args": ["@value"]
+                            "method": "\\Tc\\Phapic\\Filters::extractCodeFromQueryParams",
+                            "args": ["@value"]
                         }
                     ]
                 }

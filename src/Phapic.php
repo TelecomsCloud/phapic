@@ -183,4 +183,32 @@ class Phapic
 
     }
 
+
+    public function getSmsStatus($smsId)
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->getSmsStatus(
+            [
+                'smsId' => $smsId
+            ]
+        );
+    }
+
+
+    public function sendSms($to, $from, $message, $numberFormatLocation)
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->getInboundFax(
+            [
+                'to' => $to,
+                'from' => $from,
+                'message' => $message,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
+
+
 }
