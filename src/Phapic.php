@@ -188,7 +188,7 @@ class Phapic
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        return $this->getSmsStatus(
+        return $this->client->getSmsStatus(
             [
                 'smsId' => $smsId
             ]
@@ -200,7 +200,7 @@ class Phapic
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        return $this->client->getInboundFax(
+        return $this->client->sendSms(
             [
                 'to' => $to,
                 'from' => $from,
