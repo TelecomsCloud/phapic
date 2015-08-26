@@ -196,7 +196,7 @@ class Phapic
     }
 
 
-    public function sendSms($to, $from, $message, $numberFormatLocation)
+    public function sendSms($to, $from, $message, $numberFormatLocation = 'GB')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
