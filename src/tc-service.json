@@ -139,7 +139,7 @@
         },
         "getSmsStatus": {
             "httpMethod": "GET",
-            "uri": "v1/sms/outbound/{smsId}/status",
+            "uri": "/v1/sms/outbound/{smsId}/status",
             "responseModel": "getJsonResponse",
             "parameters": {
                 "smsId": {
@@ -151,8 +151,8 @@
         },
         "sendSms": {
             "httpMethod": "POST",
-            "uri": "v1/sms/outbound",
-            "response": "getJsonResponse",
+            "uri": "/v1/sms/outbound",
+            "responseModel": "getJsonResponse",
             "parameters": {
                 "to": {
                     "type": "string",
