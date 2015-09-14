@@ -61,11 +61,9 @@ array(5) {
 
 ```
 
-```
 
 ## Number Formatting
 
-```
 
 ```
 
@@ -88,11 +86,9 @@ array(1) {
 
 ```
 
-```
 
 # Inbound Fax
 
-```
 
 ```
 
@@ -139,11 +135,9 @@ array(1) {
 
 ```
 
-```
 
 ## Outbound SMS
 
-```
 
 ```
 
