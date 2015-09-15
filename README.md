@@ -156,9 +156,9 @@ array(9) {
   'dispatch_datetime' =>
   NULL
   'from' =>
-  string(13) "+441514961800"
-  'to' =>
   string(13) "+441514961801"
+  'to' =>
+  string(13) "+441514961800"
   'receipt_received_datetime' =>
   NULL
   'receipt_status_code' =>
