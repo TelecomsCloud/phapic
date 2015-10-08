@@ -29,7 +29,7 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  *
  * @method sendFax
  * @method getOutboundFaxStatus
- * @method getOutboundFaxUpdate
+ * @method getOutboundFaxUpdates
  */
 class Client extends GuzzleClient
 {

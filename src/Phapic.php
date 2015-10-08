@@ -236,11 +236,11 @@ class Phapic
         );
     }
 
-    public function getOutboundFaxUpdate($lastPointer)
+    public function getOutboundFaxUpdates($lastPointer)
     {
         $this->client->setBearerToken($this->getAccessToken());
 
-        return $this->client->getOutboundFaxUpdate(
+        return $this->client->getOutboundFaxUpdates(
             [
                 'last_pointer' => $lastPointer
             ]
