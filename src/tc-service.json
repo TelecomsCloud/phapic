@@ -208,7 +208,7 @@
             "httpMethod": "GET",
             "uri": "/v1/fax/outbound/{id}/status",
             "responseModel": "getJsonResponse",
-            "parameter" : {
+            "parameters" : {
                 "id": {
                     "type": "string",
                     "location": "uri",
@@ -220,7 +220,7 @@
             "httpMethod": "GET",
             "uri": "/v1/fax/outbound/updates{?last_pointer}",
             "responseModel": "getJsonResponse",
-            "parameter": {
+            "parameters": {
                 "last_pointer": {
                     "type": "string",
                     "location": "query",
