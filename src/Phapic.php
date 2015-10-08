@@ -44,7 +44,7 @@ class Phapic
         }
 
         $currentDate = new DateTime('now');
-    
+
         if (!is_array($this->token) || (isset($expiresDate) && $expiresDate < $currentDate)) {
             $grantResponse = $this->oauth2GrantClient($this->clientId, $this->clientSecret);
 
@@ -64,7 +64,6 @@ class Phapic
                 'expires_in' => $expiresDate->format('Y-m-d H:i:s')
             ];
         }
-
         return $this->token['access_token'];
     }
 
@@ -210,5 +209,42 @@ class Phapic
         );
     }
 
+
+    public function sendFax($to, $from, $document, $numberFormatLocation = 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->sendFax(
+            [
+                'to' => $to,
+                'from' => $from,
+                'fax_document' => $document,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
+
+
+    public function getOutboundFaxStatus($id)
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->getOutboundFaxStatus(
+            [
+                'id' => $id
+            ]
+        );
+    }
+
+    public function getOutboundFaxUpdate($lastPointer)
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->getOutboundFaxUpdate(
+            [
+                'last_pointer' => $lastPointer
+            ]
+        );
+    }
 
 }

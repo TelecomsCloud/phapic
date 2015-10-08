@@ -175,6 +175,58 @@
                     "required": false
                 }
             }
+        },
+        "sendFax" : {
+            "httpMethod": "POST",
+            "uri": "/v1/fax/outbound{?to}{&from}{&numberFormatLocation}",
+            "responseModel": "getJsonResponse",
+            "parameters": {
+                "to": {
+                    "type": "string",
+                    "location": "query",
+                    "required": true
+                    },
+                "from": {
+                    "type": "string",
+                    "location": "query",
+                    "required": true
+                    },
+                "numberFormatLocation": {
+                    "type": "string",
+                    "location": "query",
+                    "required": false
+                },
+                "fax_document": {
+                    "type": "object",
+                    "location": "postFile",
+                    "required": true
+
+                }
+            }
+        },
+        "getOutboundFaxStatus": {
+            "httpMethod": "GET",
+            "uri": "/v1/fax/outbound/{id}/status",
+            "responseModel": "getJsonResponse",
+            "parameter" : {
+                "id": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                }
+            }
+        },
+        "getOutboundFaxUpdates": {
+            "httpMethod": "GET",
+            "uri": "/v1/fax/outbound/updates{?last_pointer}",
+            "responseModel": "getJsonResponse",
+            "parameter": {
+                "last_pointer": {
+                    "type": "string",
+                    "location": "query",
+                    "required": true
+                }
+            }
         }
     },
     "models": {
