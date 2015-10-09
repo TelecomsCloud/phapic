@@ -26,6 +26,10 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  *
  * @method getSmsStatus
  * @method sendSms
+ *
+ * @method sendFax
+ * @method getOutboundFaxStatus
+ * @method getOutboundFaxUpdates
  */
 class Client extends GuzzleClient
 {
