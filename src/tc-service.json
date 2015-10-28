@@ -227,6 +227,74 @@
                     "required": true
                 }
             }
+        },
+        "checkCtpsListing": {
+            "httpMethod": "GET",
+            "uri": "/v1/recipient-preferences/ctps/{phone_number}",
+            "responseModel": "boolResponse",
+            "parameters": {
+                "phone_number":{
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "numberFormatLocation": {
+                    "type": "string",
+                    "location": "query",
+                    "required": false
+                }
+            }
+        },
+        "checkFpsListing": {
+            "httpMethod": "GET",
+            "uri": "/v1/recipient-preferences/fps/{phone_number}",
+            "responseModel": "boolResponse",
+            "parameters": {
+                "phone_number": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "numberFormatLocation": {
+                    "type": "string",
+                    "location": "query",
+                    "required": false
+                }
+            }
+        },
+        "checkTpsListing": {
+            "httpMethod": "GET",
+            "uri": "/v1/recipient-preferences/tps/{phone_number}",
+            "responseModel": "boolResponse",
+            "parameters": {
+                "phone_number": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "numberFormatLocation": {
+                    "type": "string",
+                    "location": "query",
+                    "required": false
+                }
+            }
+        },
+        "checkRecipientPreferencesListing": {
+            "httpMethod": "GET",
+            "uri": "/v1/recipient-preferences/{phone_number}",
+            "responseModel": "getJsonResponse",
+            "parameters": {
+                "phone_number": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": true
+                },
+                "numberFormatLocation": {
+                    "type": "string",
+                    "location": "uri",
+                    "required": false
+                }
+            }
         }
     },
     "models": {
@@ -259,6 +327,15 @@
                     "location": "header",
                     "sentAs": "location",
                     "type": "string"
+                }
+            }
+        },
+        "boolResponse": {
+            "type": "object",
+            "properties": {
+                "val": {
+                    "location": "body",
+                    "type": "boolean"
                 }
             }
         }

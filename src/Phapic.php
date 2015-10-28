@@ -236,6 +236,7 @@ class Phapic
         );
     }
 
+
     public function getOutboundFaxUpdates($lastPointer)
     {
         $this->client->setBearerToken($this->getAccessToken());
@@ -243,6 +244,58 @@ class Phapic
         return $this->client->getOutboundFaxUpdates(
             [
                 'last_pointer' => $lastPointer
+            ]
+        );
+    }
+
+
+    public function checkCtpsListing($phoneNumber, $numberFormatLocation = 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->checkCtpsListing(
+            [
+                'phone_number' => $phoneNumber,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
+
+
+    public function checkFpsListing($phoneNumber, $numberFormatLocation = 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->checkFpsListing(
+            [
+                'phone_number' => $phoneNumber,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
+
+
+    public function checkTpsListing($phoneNumber, $numberFormatLocation = 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->checkTpsListing(
+            [
+                'phone_number' => $phoneNumber,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
+
+
+    public function checkRecipientPreferencesListing($phoneNumber, $numberFormatLocation= 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->checkRecipientPreferencesListing(
+            [
+                'phone_number' => $phoneNumber,
+                'numberFormatLocation' => $numberFormatLocation
             ]
         );
     }

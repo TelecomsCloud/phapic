@@ -30,6 +30,12 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  * @method sendFax
  * @method getOutboundFaxStatus
  * @method getOutboundFaxUpdates
+ *
+ * @method checkCtpsListing
+ * @method checkFpsListing
+ * @method checkTpsListing
+ * @method checkRecipientPreferencesListing
+ *
  */
 class Client extends GuzzleClient
 {
