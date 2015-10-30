@@ -120,6 +120,85 @@ array(1) {
   'downloadLink' =>
   string(271) "https://...."
 }
+```
+## Outbound Fax
+
+```
+
+$to = '01514961800';
+$from = '01514961801';
+$document =  "/root/to/document";
+$postFile = new PostFile('fax_document',fopen($document, 'r'),'Fax-Document.pdf',['Content-Type' => 'application/pdf']);
+
+var_dump($phapic->sendFax($to, $from, $postFile));
+
+array(1) {
+  'id' =>
+  string(32) "45RT46567DSSDFGGS68FH897643RRF"
+}
+
+$faxId = '45RT46567DSSDFGGS68FH897643RRF';
+
+var_dump($phapic->getOutboundFaxStatus($faxId));
+
+ array(3) {
+  'submitted_date' =>
+  string(19) "2015-10-19 12:00:00"
+  'status' =>
+  string(4) "Sent"
+  'status_code' =>
+  int(3)
+}
+
+$faxPointer = '0';
+
+var_dump($phapic->getOutboundFaxUpdates($faxPointer));
+
+array(1) {
+  'updates' =>
+  array(3) {
+    [0] =>
+    array(5) {
+      'id' =>
+      string(32) "45RT46567DSSDF736G8FH897643RRF"
+      'date' =>
+      string(19) "2015-10-15 15:45:00"
+      'status' =>
+      string(4) "Sent"
+      'status_code' =>
+      int(3)
+      'pointer' =>
+      string(11) "78483275672"
+    }
+    [1] =>
+    array(5) {
+      'id' =>
+      string(32) "45RT46567DSSDF736G8FH897643432"
+      'date' =>
+      string(19) "2015-10-15 17:00:00"
+      'status' =>
+      string(4) "Sent"
+      'status_code' =>
+      int(3)
+      'pointer' =>
+      string(11) "2246264245"
+    }
+    [2] =>
+    array(5) {
+      'id' =>
+      string(32) "45R35JDS67DSSDF736G8FH34764332"
+      'date' =>
+      string(19) "2015-10-19 11:30:00"
+      'status' =>
+      string(4) "Sent"
+      'status_code' =>
+      int(3)
+      'pointer' =>
+      string(11) "12432234563"
+    }
+  }
+}
+
 
 ```
 
