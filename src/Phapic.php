@@ -249,31 +249,6 @@ class Phapic
     }
 
 
-    public function checkCtpsListing($phoneNumber, $numberFormatLocation = 'GB')
-    {
-        $this->client->setBearerToken($this->getAccessToken());
-
-        return $this->client->checkCtpsListing(
-            [
-                'phone_number' => $phoneNumber,
-                'numberFormatLocation' => $numberFormatLocation
-            ]
-        );
-    }
-
-
-    public function checkFpsListing($phoneNumber, $numberFormatLocation = 'GB')
-    {
-        $this->client->setBearerToken($this->getAccessToken());
-
-        return $this->client->checkFpsListing(
-            [
-                'phone_number' => $phoneNumber,
-                'numberFormatLocation' => $numberFormatLocation
-            ]
-        );
-    }
-
 
     public function checkTpsListing($phoneNumber, $numberFormatLocation = 'GB')
     {
@@ -288,7 +263,44 @@ class Phapic
     }
 
 
-    public function checkRecipientPreferencesListing($phoneNumber, $numberFormatLocation= 'GB')
+    /*
+     *  Feature not yet available
+     */
+
+    private  function checkCtpsListing($phoneNumber, $numberFormatLocation = 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->checkCtpsListing(
+            [
+                'phone_number' => $phoneNumber,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
+
+
+    /*
+     * Feature not yet available
+     */
+
+    private  function checkFpsListing($phoneNumber, $numberFormatLocation = 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->checkFpsListing(
+            [
+                'phone_number' => $phoneNumber,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
+
+
+    /*
+     * Feature not yet available
+     */
+    private  function checkRecipientPreferencesListing($phoneNumber, $numberFormatLocation= 'GB')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
