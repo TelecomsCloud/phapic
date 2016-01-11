@@ -295,7 +295,24 @@
                     "required": false
                 }
             }
+        },
+      "getLocalityInfo": {
+        "httpMethod": "GET",
+        "uri": "/v1/locality-lookup/{phone_number}",
+        "responseModel": "getJsonResponse",
+        "parameters": {
+          "phone_number": {
+            "type": "string",
+            "location": "uri",
+            "required": true
+          },
+          "numberFormatLocation": {
+            "type": "string",
+            "location": "uri",
+            "required": false
+          }
         }
+      }
     },
     "models": {
         "getJsonResponse": {
