@@ -36,6 +36,8 @@ use GuzzleHttp\Command\Guzzle\GuzzleClient;
  * @method checkTpsListing
  * @method checkRecipientPreferencesListing
  *
+ * @method getLocalityInfo
+ *
  */
 class Client extends GuzzleClient
 {

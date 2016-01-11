@@ -267,7 +267,7 @@ class Phapic
      *  Feature not yet available
      */
 
-    private  function checkCtpsListing($phoneNumber, $numberFormatLocation = 'GB')
+    private function checkCtpsListing($phoneNumber, $numberFormatLocation = 'GB')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
@@ -284,7 +284,7 @@ class Phapic
      * Feature not yet available
      */
 
-    private  function checkFpsListing($phoneNumber, $numberFormatLocation = 'GB')
+    private function checkFpsListing($phoneNumber, $numberFormatLocation = 'GB')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
@@ -297,10 +297,7 @@ class Phapic
     }
 
 
-    /*
-     * Feature not yet available
-     */
-    private  function checkRecipientPreferencesListing($phoneNumber, $numberFormatLocation= 'GB')
+    private function checkRecipientPreferencesListing($phoneNumber, $numberFormatLocation= 'GB')
     {
         $this->client->setBearerToken($this->getAccessToken());
 
@@ -312,4 +309,16 @@ class Phapic
         );
     }
 
+
+    public function getLocalityInfo($phoneNumber, $numberFormatLocation= 'GB')
+    {
+        $this->client->setBearerToken($this->getAccessToken());
+
+        return $this->client->getLocalityInfo(
+            [
+                'phone_number' => $phoneNumber,
+                'numberFormatLocation' => $numberFormatLocation
+            ]
+        );
+    }
 }
